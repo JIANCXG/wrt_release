@@ -455,8 +455,16 @@ if [[ -d $TARGET_DIR ]]; then
     find "$TARGET_DIR" -type f \( -name "*.bin" -o -name "*.manifest" -o -name "*efi.img.gz" -o -name "*.itb" -o -name "*.fip" -o -name "*.ubi" -o -name "*rootfs.tar.gz" \) -exec rm -f {} +
 fi
 
-make download -j$(($(nproc) * 2))
-make -j$(($(nproc) + 1)) || make -j1 V=s
+CPU_COUNT="$(nproc)"
+DOWNLOAD_JOBS="${DOWNLOAD_JOBS:-$((CPU_COUNT * 2))}"
+BUILD_JOBS="${BUILD_JOBS:-$CPU_COUNT}"
+
+echo "CPU_COUNT=$CPU_COUNT"
+echo "DOWNLOAD_JOBS=$DOWNLOAD_JOBS"
+echo "BUILD_JOBS=$BUILD_JOBS"
+
+make download -j"$DOWNLOAD_JOBS"
+make -j"$BUILD_JOBS" || make -j1 V=s
 
 FIRMWARE_DIR="$BASE_PATH/../firmware"
 \rm -rf "$FIRMWARE_DIR"
