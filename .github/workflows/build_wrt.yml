@@ -134,7 +134,7 @@ jobs:
           echo "=================================================="
 
           echo "[CPU]"
-          lscpu | grep -E "Model name|Architecture|CPU\\(s\\)|Thread\\(s\\) per core|Core\\(s\\) per socket|CPU max MHz"
+          lscpu | grep -E "Model name|Architecture|CPU\\(s\\)|Thread\\(s\\) per core|Core\\(s\\) per socket|CPU max MHz" || true
 
           echo "=================================================="
           echo "[Memory]"
@@ -192,7 +192,7 @@ jobs:
           echo "===================================================="
 
           echo "[CPU]"
-          lscpuaule | grep -E "Model name|Architecture|CPU\\(s\\)|Thread\\(s\\) per core|Core\\(s\\) per socket|CPU max MHz" || true
+          lscpu | grep -E "Model name|Architecture|CPU\\(s\\)|Thread\\(s\\) per core|Core\\(s\\) per socket|CPU max MHz" || true
 
           echo "===================================================="
           echo "[Memory]"
